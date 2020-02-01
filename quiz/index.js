@@ -15,3 +15,30 @@ module.exports.palindrome = function(request, response){
         result : `${sample} ${ isPalindrome ? 'is' : 'isn\'t' } palindrome`
     })
 }
+
+module.exports.groupWords = function(request, response){
+    var words = [
+        "VMRCO", "VORCM", "MCRTOX", "ZXTAC", "XZATC", 
+        "XMTCOR", "OXVS", "AZTXC", "VXOS", "RZAT", 
+        "MRCOTX", "SVXO", "TRAZ", "ZTAR", "MVOCR"
+    ]
+    var result = [
+        [ 
+            words[0] 
+        ]
+    ]
+    for(var index = 1; index < words.length; index++){
+        var matchGroupIndex = -1
+        for(var resultIndex = 0; resultIndex < result.length; resultIndex++){
+            var item = result[resultIndex][0].split('').sort().join('')
+            var compare = words[index].split('').sort().join('')
+            if(item == compare){ matchGroupIndex = resultIndex }
+        }
+        if(matchGroupIndex != -1) result[matchGroupIndex].push(words[index])
+        else result.push([words[index]])
+    }
+
+    response.json({
+        result : result
+    })
+}
