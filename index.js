@@ -10,7 +10,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', function (request, response) {
     // quiz.palindrome(request, response)
-    quiz.groupWords(request, response)
+    // quiz.groupWords(request, response)
+    // quiz.generateWords(request, response)
+    quiz.findSummary(request, response)
 });
 
 app.listen(port, () => console.log(`Application listening on port ${port}!`));

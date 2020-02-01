@@ -42,3 +42,28 @@ module.exports.groupWords = function(request, response){
         result : result
     })
 }
+
+module.exports.generateWords = function(request, response){
+    var word = 'ABC'
+    var result = wordGenerater(word, '')
+    response.json({
+        result : result
+    })
+}
+
+function wordGenerater(word, startWith){
+    
+}
+
+module.exports.findSummary = function(request, response){
+    var limit = 3
+    var result = 0
+    for(var index = 1; index <= limit; index++){ 
+        result = result + Math.pow(index, index) 
+    }
+
+    response.json({
+        input: `N = ${limit}`,
+        output : result
+    })
+}
