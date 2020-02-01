@@ -11,9 +11,15 @@ module.exports.palindrome = function(request, response){
         if(firstPartChar !== secondPartChar){isPalindrome = false }
     }
 
-    response.json({
-        result : `${sample} ${ isPalindrome ? 'is' : 'isn\'t' } palindrome`
-    })
+    // response.json({
+    //     input: deleveled,
+    //     output : `${sample} ${ isPalindrome ? 'is' : 'isn\'t' } palindrome`
+    // })
+
+    return {
+        input: 'deleveled',
+        output : `${sample} ${ isPalindrome ? 'is' : 'isn\'t' } palindrome`
+    }
 }
 
 module.exports.groupWords = function(request, response){
@@ -38,21 +44,58 @@ module.exports.groupWords = function(request, response){
         else result.push([words[index]])
     }
 
-    response.json({
-        result : result
-    })
+    // response.json({
+    //     input : words,
+    //     output : result
+    // })
+    return {
+        input : words,
+        output : result
+    }
 }
 
 module.exports.generateWords = function(request, response){
     var word = 'ABC'
-    var result = wordGenerater(word, '')
-    response.json({
-        result : result
-    })
+    var generated = generateWordFrom(word)
+
+    // response.json({
+    //     input : word,
+    //     output : generated
+    // })
+
+    return {
+        input : word,
+        output : generated
+    }
+}
+
+function generateWordFrom(word){
+    var result = []
+    word.split('').forEach(element => {
+        var temp = wordGenerater(word, element)
+        result.push(temp.join(','))
+    });
+    return result
 }
 
 function wordGenerater(word, startWith){
+    var resources = word.split('')
+    var starts = startWith.split('')
+    var resultItem = []
+
+    starts.forEach(element => {
+        var index = resources.indexOf(element)
+        resources.splice(index, 1)
+    });
+
+    if(resources.length == 0) return startWith
+
+    for(var index = 0; index < resources.length; index++){ 
+        var temp = wordGenerater(word, startWith + resources[index])
+        resultItem.push(temp)
+    }
     
+    return resultItem
 }
 
 module.exports.findSummary = function(request, response){
@@ -62,8 +105,13 @@ module.exports.findSummary = function(request, response){
         result = result + Math.pow(index, index) 
     }
 
-    response.json({
+    // response.json({
+    //     input: `N = ${limit}`,
+    //     output : result
+    // })
+
+    return {
         input: `N = ${limit}`,
         output : result
-    })
+    }
 }
