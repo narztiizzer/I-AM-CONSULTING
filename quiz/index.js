@@ -115,3 +115,11 @@ module.exports.findSummary = function(request, response){
         output : result
     }
 }
+
+module.exports.databaseDiagram = function(request, response){
+    var url = request.protocol + '://' + request.get('host') + request.originalUrl;
+    return {
+        input: `NONE`,
+        output : `${url}diagram.png`
+    }
+}

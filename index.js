@@ -5,6 +5,7 @@ var app = express();
 
 const port = 9192
 
+app.use('/', express.static('images'))
 app.use(bodyParser.json({limit: '5mb'}));
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -13,12 +14,14 @@ app.get('/', function (request, response) {
     var groupWordResult = quiz.groupWords(request, response)
     var generateWordsResult = quiz.generateWords(request, response)
     var findSummaryResult = quiz.findSummary(request, response)
+    var databaseDiagramResult = quiz.databaseDiagram(request, response)
 
     response.json([
         palindromeResult,
         groupWordResult,
         generateWordsResult,
-        findSummaryResult
+        findSummaryResult,
+        databaseDiagramResult
     ])
 });
 
